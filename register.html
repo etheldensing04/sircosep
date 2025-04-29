@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="main2.js"></script>
+    <style>
+        body {
+          margin: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+    
+        .container {
+          background-color: #ffffff;
+          border-radius: 12px;
+          padding: 40px;
+          width: 90%;
+          max-width: 1000px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    
+        h2 {
+          color: #3B1BDE;
+          margin-bottom: 30px;
+        }
+    
+        form {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px 40px;
+        }
+    
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+    
+        label {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+    
+        input, select {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 16px;
+        }
+    
+        .full-width {
+          grid-column: span 2;
+        }
+    
+        button {
+          grid-column: span 2;
+          padding: 14px;
+          border: none;
+          border-radius: 30px;
+          background: linear-gradient(to right, #7c4dff, #651fff);
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+
+        }
+    
+        button:hover {
+          background: linear-gradient(to right, #5a32c5, #4a14c2);
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registerForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Student Name:</label>
+            <input type="text" name="student_name" required>
+          </div>
+    
+          <div class="form-group">
+            <label>School:</label>
+            <input type="text" name="school" required>
+          </div>
+    
+          <div class="form-group">
+            <label>School Address:</label>
+            <input type="text" name="school_address" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Contact:</label>
+            <input type="text" name="contact" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Organization:</label>
+            <input type="text" name="organization" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Coordinator:</label>
+            <input type="text" name="coordinator" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Date Created:</label>
+            <input type="date" name="date_created" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" required>
+          </div>
+    
+          <div class="form-group">
+            <label>Profile Image:</label>
+            <input type="file" name="profile_image">
+          </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            let formData = new FormData(this);
+
+            fetch("register.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    window.location.href = "login.html"; // Redirect after successful verification
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            });
+        });
+    </script>
+    
+</body>
+</html>
